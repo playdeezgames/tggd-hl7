@@ -1,0 +1,5 @@
+local M = {}
+M.TITLE = "TITLE"
+M.NEW_GAME = "NEW_GAME"
+M.INSTRUCTIONS = "INSTRUCTIONS"
+return M
