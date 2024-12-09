@@ -86,6 +86,18 @@ key_trigger {
   input: KEY_KP_ENTER
   action: "ENTER"
 }
+key_trigger {
+  input: KEY_BACKSPACE
+  action: "BACKSPACE"
+}
+key_trigger {
+  input: KEY_DEL
+  action: "DELETE"
+}
+key_trigger {
+  input: KEY_KP_DECIMAL
+  action: "DELETE"
+}
 mouse_trigger {
   input: MOUSE_BUTTON_1
   action: "touch"

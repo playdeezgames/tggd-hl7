@@ -8,6 +8,7 @@ local TILEMAP_LAYER = "only"
 
 
 function init(self)
+	math.randomseed(os.clock())
 	msg.post(".", "acquire_input_focus")
 end
 

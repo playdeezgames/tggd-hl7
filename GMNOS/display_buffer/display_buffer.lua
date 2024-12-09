@@ -167,21 +167,24 @@ function M.clear(cell)
 	cursor_column = 1
 	cursor_row = 16
 end
+function M.write_cell(cell)
+	M.set_cell(cursor_column, cursor_row, cell)
+	cursor_column = cursor_column + 1
+	if cursor_column>M.COLUMNS then
+		cursor_column = cursor_column - M.COLUMNS
+		cursor_row = cursor_row - 1
+		if cursor_row < 1 then
+			--TODO: scroll screen
+			cursor_row = 1
+		end
+	end
+end
 function M.write(text, character_set)
 	character_set = character_set or 1
 	for index = 1, #text do
 		local character = text:sub(index,index)
 		local cell = characters[character_set][character]
-		M.set_cell(cursor_column, cursor_row, cell)
-		cursor_column = cursor_column + 1
-		if cursor_column>M.COLUMNS then
-			cursor_column = cursor_column - M.COLUMNS
-			cursor_row = cursor_row - 1
-			if cursor_row < 1 then
-				--TODO: scroll screen
-				cursor_row = 1
-			end
-		end
+		M.write_cell(cell)
 	end
 end
 function M.new_line(character_set)
