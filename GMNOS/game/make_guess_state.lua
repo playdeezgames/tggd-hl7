@@ -45,10 +45,8 @@ function M.handle_command(command)
 		data.set_guess_buffer(data.get_guess_buffer().."8")
 	elseif command==commands.NINE then
 		data.set_guess_buffer(data.get_guess_buffer().."9")
-	elseif command==commands.ENTER then
-		if data.process_guess() then
-			return states.BETWEEN_ROUNDS
-		end
+	elseif command==commands.ENTER and data.get_guess_buffer()~="" then
+		return data.process_guess()
 	elseif command==commands.BACKSPACE then
 		if #(data.get_guess_buffer()) > 1 then
 			data.set_guess_buffer(string.sub(data.get_guess_buffer(),1,#data.get_guess_buffer()-1))
