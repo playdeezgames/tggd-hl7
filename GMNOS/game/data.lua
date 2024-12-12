@@ -98,16 +98,72 @@ end
 function M.new_game()
 	data.total_guesses=0
 	data.total_games=0
-	data.maximum_health = 10
+	data.maximum_health = 100
 	data.health = data.maximum_health
-	data.maximum_satiety = 10
+	data.maximum_satiety = 100
 	data.satiety = data.maximum_satiety
 	data.jools = 0
+	data.rations = 0
+	data.potions = 0
+	data.rations_price = 1
+	data.potion_price = 5
 	M.new_round()
+end
+
+function M.get_rations_price()
+	return data.rations_price
+end
+
+function M.set_rations_price(value)
+	data.rations_price = value
+end
+
+function M.get_potion_price()
+	return data.potion_price
+end
+
+function M.set_potion_price(value)
+	data.potion_price = value
+end
+
+function M.can_afford_rations()
+	return M.get_jools()>=M.get_rations_price()
+end
+
+function M.can_afford_potion()
+	return M.get_jools()>=M.get_potion_price()
 end
 
 function M.get_jools()
 	return data.jools
+end
+
+function M.get_rations()
+	return data.rations
+end
+
+function M.set_rations(value)
+	data.rations = value
+end
+
+function M.get_potions()
+	return data.potions
+end
+
+function M.set_potions(value)
+	data.potions = value
+end
+
+function M.buy_rations()
+	M.set_rations(M.get_rations()+1)
+	M.set_jools(M.get_jools()-M.get_rations_price())
+	M.set_rations_price(M.get_rations_price()+1)
+end
+
+function M.buy_potion()
+	M.set_potions(M.get_potions()+1)
+	M.set_jools(M.get_jools()-M.get_potion_price())
+	M.set_potion_price(M.get_potion_price()+1)
 end
 
 function M.set_jools(value)
@@ -144,6 +200,34 @@ end
 
 function M.set_guess_buffer(new_value)
 	data.guess_buffer=new_value
+end
+
+function M.can_enter_shoppe()
+	return M.get_jools()>0
+end
+
+function M.has_inventory()
+	return M.get_rations() > 0 or M.get_potions() > 0
+end
+
+function M.eat_rations()
+	if M.get_rations()>0 then
+		M.clear_messages()
+		M.add_message("-1 RATIONS")
+		M.set_rations(M.get_rations()-1)
+		M.add_message("+25 SATIETY")
+		M.set_satiety(M.get_satiety()+25)
+	end
+end
+
+function M.drink_potion()
+	if M.get_potions()>0 then
+		M.clear_messages()
+		M.add_message("-1 POTION")
+		M.set_potions(M.get_potions()-1)
+		M.add_message("+25 HEALTH")
+		M.set_health(M.get_health()+25)
+	end
 end
 
 M.new_game()

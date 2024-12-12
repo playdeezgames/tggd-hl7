@@ -12,7 +12,7 @@ function M.update(dt)
 	for _,message in ipairs(data.get_messages()) do
 		display_buffer.write_line(message, 1)
 	end
-	display_buffer.write("YER GUESS?", 1)
+	display_buffer.write("YER GUESS? ", 1)
 	display_buffer.write(data.get_guess_buffer(), 1)
 	display_buffer.write_cell(cursor_cell)
 	cursor_cell = cursor_cell + 16
